@@ -75,5 +75,7 @@
     <string>Automatic</string>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
+    <key>NSFaceIDUsageDescription</key>
+    <string>Authenticate to use the app</string>
   </dict>
 </plist>
