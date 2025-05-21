@@ -1,14 +1,23 @@
 import {
   FlatList,
   ListRenderItemInfo,
+  Pressable,
   StyleSheet,
   Text,
   View,
 } from "react-native";
 
+import { Stack, useRouter } from "expo-router";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
+  const router = useRouter();
+
+  const handleScannPress = () => {
+    console.log("Button pressed!");
+    router.push("/scanner");
+  };
+
   const renderItem = (
     itemInfo: ListRenderItemInfo<{
       key: string;
@@ -26,6 +35,12 @@ export default function HomeScreen() {
 
     return (
       <View style={{ flexDirection: "row", padding: 16 }}>
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            title: "Authenticator",
+          }}
+        />
         <View style={{ marginRight: 16 }}>
           {/* <Image
             source={
@@ -78,9 +93,6 @@ export default function HomeScreen() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-        <View style={styles.scanButton}>
-          <Text style={{ color: "#fff", fontSize: 24 }}>+</Text>
-        </View>
         <FlatList
           data={[
             {
@@ -107,6 +119,9 @@ export default function HomeScreen() {
           ]}
           renderItem={renderItem}
         />
+        <Pressable onPress={handleScannPress} style={styles.scanButton}>
+          <Text style={{ color: "#fff", fontSize: 24 }}>+</Text>
+        </Pressable>
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -144,5 +159,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
+    zIndex: 1000,
   },
 });
