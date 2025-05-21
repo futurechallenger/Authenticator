@@ -1,9 +1,12 @@
+import { useRouter } from "expo-router";
 import React from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 const AuthScreen = () => {
+  const router = useRouter();
   const handlePress = () => {
     console.log("Button pressed!");
+    router.push("/authenticator");
   };
 
   return (
