@@ -1,10 +1,33 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 const AuthScreen = () => {
+  const handlePress = () => {
+    console.log("Button pressed!");
+  };
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Authentication</Text>
+      <View
+        style={{
+          flex: 2,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text style={styles.text}>Authenticator</Text>
+      </View>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "flex-start",
+          alignItems: "center",
+        }}
+      >
+        <Pressable onPress={handlePress}>
+          <Text style={styles.buttonTitle}>Login</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -12,12 +35,16 @@ const AuthScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   text: {
     fontSize: 24,
     fontWeight: "bold",
+  },
+  buttonTitle: {
+    fontSize: 18,
+    color: "blue",
   },
 });
 
