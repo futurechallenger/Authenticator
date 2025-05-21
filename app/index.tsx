@@ -1,20 +1,48 @@
 import { useRouter } from "expo-router";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import ReactNativeBiometrics from "react-native-biometrics";
 
 const AuthScreen = () => {
   const router = useRouter();
-  const handlePress = () => {
-    console.log("Button pressed!");
-    router.push("/authenticator");
+
+  const promptScreen = async () => {
+    console.log("App is now active");
+    const biometrics = new ReactNativeBiometrics({
+      allowDeviceCredentials: true,
+    });
+    const { biometryType } = await biometrics.isSensorAvailable();
+
+    console.log(`>>>biometryType: ${biometryType}`);
+
+    if (biometryType === "FaceID") {
+      console.log("FaceID is available");
+      biometrics
+        .simplePrompt({
+          promptMessage: "Authenticate to access the app",
+        })
+        .then(({ success, error }) => {
+          if (error) {
+            // TODO: dealing with erroo
+            return;
+          }
+
+          console.log(`>>>success: ${success}, >>> error: ${error}`);
+
+          router.push("/(tabs)");
+        });
+    }
   };
 
   useEffect(() => {
-    console.log("AuthScreen mounted");
-    return () => {
-      console.log("AuthScreen unmounted");
-    };
-  });
+    promptScreen();
+  }, []);
+
+  const handlePress = () => {
+    console.log("Button pressed!");
+    // router.push("/authenticator");
+    promptScreen();
+  };
 
   return (
     <View style={styles.container}>

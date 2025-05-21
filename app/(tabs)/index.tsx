@@ -5,38 +5,8 @@ import { HelloWave } from "@/components/HelloWave";
 import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { useEffect } from "react";
-import ReactNativeBiometrics from "react-native-biometrics";
 
 export default function HomeScreen() {
-  useEffect(() => {
-    const promptScreen = async () => {
-      console.log("App is now active");
-      const biometrics = new ReactNativeBiometrics({
-        allowDeviceCredentials: true,
-      });
-      const { biometryType } = await biometrics.isSensorAvailable();
-
-      console.log(`>>>biometryType: ${biometryType}`);
-
-      if (biometryType === "FaceID") {
-        console.log("FaceID is available");
-        biometrics
-          .simplePrompt({
-            promptMessage: "Authenticate to access the app",
-          })
-          .then(({ success, error }) => {
-            if (error) {
-              // TODO: dealing with error
-            }
-            console.log(`>>>success: ${success}, >>> error: ${error}`);
-          });
-      }
-    };
-
-    // promptScreen();
-  }, []);
-
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
