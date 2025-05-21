@@ -1,6 +1,6 @@
 import { Tabs } from "expo-router";
-import React, { useEffect } from "react";
-import { AppState, Platform } from "react-native";
+import React from "react";
+import { Platform } from "react-native";
 
 import { HapticTab } from "@/components/HapticTab";
 import { IconSymbol } from "@/components/ui/IconSymbol";
@@ -10,21 +10,6 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
-  useEffect(() => {
-    const subscription = AppState.addEventListener("change", (state) => {
-      if (state === "active") {
-        console.log("App is now active");
-      } else if (state === "background") {
-        console.log("App is now in the background");
-      } else if (state === "inactive") {
-        console.log("App is now inactive");
-      }
-    });
-    return () => {
-      subscription.remove(); // Clean up the subscription
-    };
-  }, []);
 
   return (
     <Tabs

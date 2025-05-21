@@ -6,6 +6,8 @@ import {
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useEffect } from "react";
+import { AppState } from "react-native";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
@@ -15,6 +17,21 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (state) => {
+      if (state === "active") {
+        console.log("App is now active");
+      } else if (state === "background") {
+        console.log("App is now in the background");
+      } else if (state === "inactive") {
+        console.log("App is now inactive");
+      }
+    });
+    return () => {
+      subscription.remove(); // Clean up the subscription
+    };
+  }, []);
 
   if (!loaded) {
     // Async font loading only occurs in development.

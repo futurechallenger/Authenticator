@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useEffect } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
 const AuthScreen = () => {
@@ -8,6 +8,13 @@ const AuthScreen = () => {
     console.log("Button pressed!");
     router.push("/authenticator");
   };
+
+  useEffect(() => {
+    console.log("AuthScreen mounted");
+    return () => {
+      console.log("AuthScreen unmounted");
+    };
+  });
 
   return (
     <View style={styles.container}>
