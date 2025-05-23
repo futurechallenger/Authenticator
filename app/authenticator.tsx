@@ -2,10 +2,19 @@ import { useLocalSearchParams } from "expo-router";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+// 在文件顶部添加以下依赖
+import jsSHA from "jssha";
+
 export default function Authenticator() {
-  const params = useLocalSearchParams();
+  const params = useLocalSearchParams() as { params: string };
 
   console.log(">>>>>Authenticator>>>", params);
+
+  if (params.params) {
+    const qs = getQueryParams(params.params);
+    const { code, remaining } = generateTOTP(qs.secret);
+    console.log(`Current TOTP code: ${code}, Remaining: ${remaining} seconds`);
+  }
 
   return (
     <View style={styles.container}>
@@ -13,6 +22,69 @@ export default function Authenticator() {
     </View>
   );
 }
+
+function getQueryParams(url: string): { [key: string]: string } {
+  const params = new URLSearchParams(url.split("?")[1]);
+  const result: { [key: string]: string } = {};
+  params.forEach((value, key) => {
+    result[key] = decodeURIComponent(value);
+  });
+  return result;
+}
+
+// 添加Base32解码函数
+const base32Decode = (base32: string): Uint8Array => {
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
+  base32 = base32.replace(/=+$/, "").toUpperCase();
+  const bytes: number[] = [];
+  let bits = 0;
+  let value = 0;
+
+  for (const char of base32) {
+    const index = alphabet.indexOf(char);
+    if (index === -1) throw new Error("Invalid base32 character");
+    value = (value << 5) | index;
+    bits += 5;
+    if (bits >= 8) {
+      bits -= 8;
+      bytes.push((value >>> bits) & 0xff);
+    }
+  }
+  return new Uint8Array(bytes);
+};
+
+// 完整的TOTP生成函数
+const generateTOTP = (secret: string, interval: number = 30) => {
+  const key = base32Decode(secret);
+  const epoch = Math.floor(Date.now() / 1000);
+  const counter = Math.floor(epoch / interval);
+
+  // 生成8字节的counter buffer（大端序）
+  const buffer = new DataView(new ArrayBuffer(8));
+  buffer.setUint32(4, counter);
+
+  // 计算HMAC-SHA1
+  const sha = new jsSHA("SHA-1", "ARRAYBUFFER");
+  sha.setHMACKey(key.buffer as ArrayBuffer, "ARRAYBUFFER");
+  sha.update(buffer.buffer);
+  const hmac = new Uint8Array(sha.getHMAC("ARRAYBUFFER"));
+
+  // 动态截断
+  const offset = hmac[hmac.length - 1] & 0x0f;
+  const binary =
+    ((hmac[offset] & 0x7f) << 24) |
+    ((hmac[offset + 1] & 0xff) << 16) |
+    ((hmac[offset + 2] & 0xff) << 8) |
+    (hmac[offset + 3] & 0xff);
+
+  const code = binary % 1000000;
+  const remaining = interval - (epoch % interval);
+
+  return {
+    code: code.toString().padStart(6, "0"),
+    remaining,
+  };
+};
 
 const styles = StyleSheet.create({
   container: {
