@@ -5,6 +5,7 @@ import {
   Camera,
   useCameraDevice,
   useCameraPermission,
+  useCodeScanner,
 } from "react-native-vision-camera";
 
 export default function Scanner() {
@@ -12,6 +13,16 @@ export default function Scanner() {
   const { hasPermission, requestPermission } = useCameraPermission();
 
   const device = useCameraDevice("back");
+  const codeScanner = useCodeScanner({
+    codeTypes: ["qr"],
+    onCodeScanned: (code) => {
+      console.log(code);
+      router.replace({
+        pathname: "/authenticator",
+        params: { params: code[0].value },
+      });
+    },
+  });
 
   useEffect(() => {
     (async () => {
@@ -36,7 +47,12 @@ export default function Scanner() {
     <SafeAreaView
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     >
-      <Camera style={StyleSheet.absoluteFill} device={device} isActive />
+      <Camera
+        style={StyleSheet.absoluteFill}
+        device={device}
+        isActive
+        codeScanner={codeScanner}
+      />
     </SafeAreaView>
   );
 }

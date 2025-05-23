@@ -40,7 +40,8 @@
       [
         "react-native-vision-camera",
         {
-          "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera to scan QR codes."
+          "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera to scan QR codes.",
+          "enableCodeScanner": true
         }
       ]
     ],
