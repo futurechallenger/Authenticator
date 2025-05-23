@@ -1,6 +1,23 @@
+import { useRouter } from "expo-router";
+import { useEffect } from "react";
 import { SafeAreaView, Text, View } from "react-native";
+import { useCameraPermission } from "react-native-vision-camera";
 
 export default function Scanner() {
+  const router = useRouter();
+  const { hasPermission, requestPermission } = useCameraPermission();
+
+  useEffect(() => {
+    (async () => {
+      if (!hasPermission) {
+        const status = await requestPermission();
+        if (!status) {
+          router.push("/");
+        }
+      }
+    })();
+  }, []);
+
   return (
     <SafeAreaView
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}

@@ -45,6 +45,10 @@
       <key>NSAllowsLocalNetworking</key>
       <true/>
     </dict>
+    <key>NSCameraUsageDescription</key>
+    <string>$(PRODUCT_NAME) needs access to your Camera to scan QR codes.</string>
+    <key>NSFaceIDUsageDescription</key>
+    <string>Authenticate to use the app</string>
     <key>NSUserActivityTypes</key>
     <array>
       <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
@@ -75,7 +79,5 @@
     <string>Automatic</string>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
-    <key>NSFaceIDUsageDescription</key>
-    <string>Authenticate to use the app</string>
   </dict>
 </plist>
