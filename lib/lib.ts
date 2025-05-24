@@ -1,3 +1,4 @@
+// 在文件顶部添加以下依赖
 import jsSHA from "jssha";
 
 export function getQueryParams(url: string): { [key: string]: string } {
@@ -8,6 +9,20 @@ export function getQueryParams(url: string): { [key: string]: string } {
   });
   return result;
 }
+
+export const getTOTPAccount = (uri: string): string => {
+  // 解码并分割 URI 各部分
+  const url = new URL(uri);
+  const path = decodeURIComponent(url.pathname);
+
+  // 从路径中提取账户名（格式为 totp/Issuer:AccountName）
+  const accountPart = path.split("totp/")[1];
+  const [_, account] = accountPart.includes(":")
+    ? accountPart.split(":")
+    : [null, accountPart];
+
+  return account.split("?")[0];
+};
 
 // 添加Base32解码函数
 export const base32Decode = (base32: string): Uint8Array => {
