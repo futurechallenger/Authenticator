@@ -34,15 +34,10 @@ export default function HomeScreen() {
     });
 
     return (
-      <View style={{ flexDirection: "row", padding: 16 }}>
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            title: "Authenticator",
-          }}
-        />
-        <View style={{ marginRight: 16 }}>
-          {/* <Image
+      <Pressable onPress={() => router.push("/detail")}>
+        <View style={{ flexDirection: "row", padding: 16 }}>
+          <View style={{ marginRight: 16 }}>
+            {/* <Image
             source={
               item.icon
                 ? { uri: item.icon }
@@ -50,48 +45,63 @@ export default function HomeScreen() {
             }
             style={{ width: 40, height: 40, borderRadius: 20 }}
           /> */}
-          <View
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 20,
-              backgroundColor: "#007AFF",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          />
-        </View>
-        <View style={{ flex: 1 }}>
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>{item.title}</Text>
-          <Text style={{ fontSize: 14, color: "#666", marginTop: 4 }}>
-            {item.subtitle}
-          </Text>
-          <View
-            style={{ flexDirection: "row", alignItems: "center", marginTop: 8 }}
-          >
-            <Text style={{ fontSize: 18, fontWeight: "bold", marginRight: 8 }}>
-              {formattedValue}
-            </Text>
             <View
               style={{
-                width: 24,
-                height: 24,
-                borderRadius: 12,
-                borderWidth: 2,
-                borderColor: "#007AFF",
+                width: 40,
+                height: 40,
+                borderRadius: 20,
+                backgroundColor: "#007AFF",
                 justifyContent: "center",
                 alignItems: "center",
               }}
+            />
+          </View>
+          <View style={{ flex: 1 }}>
+            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+              {item.title}
+            </Text>
+            <Text style={{ fontSize: 14, color: "#666", marginTop: 4 }}>
+              {item.subtitle}
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginTop: 8,
+              }}
             >
-              <Text style={{ fontSize: 10 }}>{item.timer}</Text>
+              <Text
+                style={{ fontSize: 18, fontWeight: "bold", marginRight: 8 }}
+              >
+                {formattedValue}
+              </Text>
+              <View
+                style={{
+                  width: 24,
+                  height: 24,
+                  borderRadius: 12,
+                  borderWidth: 2,
+                  borderColor: "#007AFF",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text style={{ fontSize: 10 }}>{item.timer}</Text>
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      </Pressable>
     );
   };
   return (
     <SafeAreaProvider>
+      <Stack.Screen
+        options={{
+          headerShown: true,
+          title: "Authenticator",
+        }}
+      />
       <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
         <FlatList
           data={[

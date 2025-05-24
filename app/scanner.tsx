@@ -18,7 +18,7 @@ export default function Scanner() {
     onCodeScanned: (code) => {
       console.log(code);
       router.replace({
-        pathname: "/authenticator",
+        pathname: "/(tabs)",
         params: { params: code[0].value },
       });
     },
