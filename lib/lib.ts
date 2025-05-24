@@ -1,6 +1,16 @@
 // 在文件顶部添加以下依赖
 import jsSHA from "jssha";
 
+export function parseQRStringInfo(url: string): { [key: string]: string } {
+  const queryParams = getQueryParams(url);
+  const account = getTOTPAccount(url);
+
+  return {
+    ...queryParams,
+    account,
+  };
+}
+
 export function getQueryParams(url: string): { [key: string]: string } {
   const params = new URLSearchParams(url.split("?")[1]);
   const result: { [key: string]: string } = {};
