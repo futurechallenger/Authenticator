@@ -1,12 +1,13 @@
 import { generateTOTP } from "@/lib/lib";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import * as Clipboard from "expo-clipboard";
-import { useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 
 export default function DetailScreen() {
   const params = useLocalSearchParams();
+  const router = useRouter();
   const { code, remaining } = generateTOTP(params.secret as string);
 
   const copyToClipboard = async () => {
@@ -15,6 +16,22 @@ export default function DetailScreen() {
 
   return (
     <View style={styles.container}>
+      <Stack.Screen
+        options={{
+          title: "Detail",
+          headerRight: () => (
+            <Pressable
+              onPress={() => {
+                router.push(
+                  `/settings?secret=${params.secret}&issuer=${params.issuer}&account=${params.account}`
+                );
+              }}
+            >
+              <FontAwesome name="ellipsis-v" size={24} color="black" />
+            </Pressable>
+          ),
+        }}
+      />
       {/* 顶部信息行 */}
       <View style={styles.header}>
         <View>
