@@ -29,7 +29,7 @@ const AuthScreen = () => {
 
           console.log(`>>>success: ${success}, >>> error: ${error}`);
 
-          router.push("/(tabs)");
+          router.replace("/(tabs)");
         });
     }
   };
