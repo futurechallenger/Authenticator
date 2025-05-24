@@ -1,22 +1,17 @@
-import { createContext } from "react";
-import { MMKVInstance } from "react-native-mmkv-storage";
-
-export const DataContext = createContext<MMKVInstance | null>(null);
-
-DataContext.displayName = "MMKVDataContext";
-
-type Props = {
-  value: MMKVInstance | null;
-  children: React.ReactNode;
-};
-
-export function DataProvider({ value, children }: Props) {
-  return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
-}
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export interface AccountInfo {
   account: string;
   secret: string;
   issuer: string;
   rawInfo: string;
+}
+
+export async function getArrayAsync<T>(key: string): Promise<T[]> {
+  const item = await AsyncStorage.getItem(key);
+  return JSON.parse(item ?? "[]") as T[];
+}
+
+export function setArrayAsync<T>(key: string, value: T[]): Promise<void> {
+  return AsyncStorage.setItem(key, JSON.stringify(value ?? []));
 }

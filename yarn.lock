@@ -1395,6 +1395,13 @@
   dependencies:
     "@radix-ui/react-compose-refs" "1.1.2"
 
+"@react-native-async-storage/async-storage@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.npmmirror.com/@react-native-async-storage/async-storage/-/async-storage-2.1.2.tgz#8aae432adfc20800308e2ef3ce380864f0f9def8"
+  integrity sha512-dvlNq4AlGWC+ehtH12p65+17V0Dx7IecOWl6WanF2ja38O1Dcjjvn7jVzkUHJ5oWkQBlyASurTPlTHgKXyYiow==
+  dependencies:
+    merge-options "^3.0.4"
+
 "@react-native/assets-registry@0.79.2":
   version "0.79.2"
   resolved "https://registry.npmmirror.com/@react-native/assets-registry/-/assets-registry-0.79.2.tgz#731963e664c8543f5b277e56c058bde612b69f50"
@@ -4100,6 +4107,11 @@ is-number@^7.0.0:
   resolved "https://registry.npmmirror.com/is-number/-/is-number-7.0.0.tgz#7535345b896734d5f80c4d06c50955527a14f12b"
   integrity sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==
 
+is-plain-obj@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npmmirror.com/is-plain-obj/-/is-plain-obj-2.1.0.tgz#45e42e37fccf1f40da8e5f76ee21515840c09287"
+  integrity sha512-YWnfyRwxL/+SsrWYfOpUtz5b3YD+nyfkHvjbcanzk8zgyO4ASD67uVMRt8k5bM4lLMDnXfriRhOpemw+NfT1eA==
+
 is-regex@^1.2.1:
   version "1.2.1"
   resolved "https://registry.npmmirror.com/is-regex/-/is-regex-1.2.1.tgz#76d70a3ed10ef9be48eb577887d74205bf0cad22"
@@ -4603,6 +4615,13 @@ memoize-one@^6.0.0:
   version "6.0.0"
   resolved "https://registry.npmmirror.com/memoize-one/-/memoize-one-6.0.0.tgz#b2591b871ed82948aee4727dc6abceeeac8c1045"
   integrity sha512-rkpe71W0N0c0Xz6QD0eJETuWAJGnJ9afsl1srmwPrI+yBCkge5EycXXbYRyvL29zZVUWQCY7InPRCv3GDXuZNw==
+
+merge-options@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.npmmirror.com/merge-options/-/merge-options-3.0.4.tgz#84709c2aa2a4b24c1981f66c179fe5565cc6dbb7"
+  integrity sha512-2Sug1+knBjkaMsMgf1ctR1Ujx+Ayku4EdJN4Z+C2+JzoeF7A3OZ9KM2GY0CpQS51NR61LTurMJrRKPhSs3ZRTQ==
+  dependencies:
+    is-plain-obj "^2.1.0"
 
 merge-stream@^2.0.0:
   version "2.0.0"
@@ -5451,11 +5470,6 @@ react-native-is-edge-to-edge@1.1.7, react-native-is-edge-to-edge@^1.1.6:
   version "1.1.7"
   resolved "https://registry.npmmirror.com/react-native-is-edge-to-edge/-/react-native-is-edge-to-edge-1.1.7.tgz#28947688f9fafd584e73a4f935ea9603bd9b1939"
   integrity sha512-EH6i7E8epJGIcu7KpfXYXiV2JFIYITtq+rVS8uEb+92naMRBdxhTuS8Wn2Q7j9sqyO0B+Xbaaf9VdipIAmGW4w==
-
-react-native-mmkv-storage@^0.11.2:
-  version "0.11.2"
-  resolved "https://registry.npmmirror.com/react-native-mmkv-storage/-/react-native-mmkv-storage-0.11.2.tgz#29d838ed31e9ead660a90de16d8ac2c2fd83e48c"
-  integrity sha512-/jbYNOUrwgVU09WyXDK6lFGXqBs+23oR9X37z3N68rwHNiXF5WDyXnT38dU2tF07ZlvmsobNHgdxgTu4kGQUKQ==
 
 react-native-reanimated@~3.17.4:
   version "3.17.5"

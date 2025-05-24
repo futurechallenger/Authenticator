@@ -2,8 +2,11 @@
 import jsSHA from "jssha";
 
 export function parseQRStringInfo(url: string): { [key: string]: string } {
+  console.log(">>>parseQRStringInfo start");
   const queryParams = getQueryParams(url);
   const account = getTOTPAccount(url);
+
+  console.log(">>>parseQRStringInfo end");
 
   return {
     ...queryParams,
@@ -12,25 +15,28 @@ export function parseQRStringInfo(url: string): { [key: string]: string } {
 }
 
 export function getQueryParams(url: string): { [key: string]: string } {
+  console.log(">>>getQueryParams start");
+
   const params = new URLSearchParams(url.split("?")[1]);
   const result: { [key: string]: string } = {};
   params.forEach((value, key) => {
     result[key] = decodeURIComponent(value);
   });
+
+  console.log(">>>getQueryParams end");
   return result;
 }
 
 export const getTOTPAccount = (uri: string): string => {
+  console.log(">>>getTOTPAccount start");
   // 解码并分割 URI 各部分
   const url = new URL(uri);
   const path = decodeURIComponent(url.pathname);
 
   // 从路径中提取账户名（格式为 totp/Issuer:AccountName）
-  const accountPart = path.split("totp/")[1];
-  const [_, account] = accountPart.includes(":")
-    ? accountPart.split(":")
-    : [null, accountPart];
+  const [_, account] = path.includes(":") ? path.split(":") : [null, path];
 
+  console.log(">>>getTOTPAccount end");
   return account.split("?")[0];
 };
 
