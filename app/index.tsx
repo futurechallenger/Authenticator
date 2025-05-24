@@ -15,7 +15,7 @@ const AuthScreen = () => {
 
     console.log(`>>>biometryType: ${biometryType}`);
 
-    if (biometryType === "FaceID") {
+    if (biometryType === "FaceID" || biometryType === "Biometrics") {
       console.log("FaceID is available");
       biometrics
         .simplePrompt({
