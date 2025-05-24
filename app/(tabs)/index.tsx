@@ -7,6 +7,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 
 import { generateTOTP, parseQRStringInfo } from "@/lib/lib";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -19,11 +20,6 @@ export default function HomeScreen() {
   const params = useLocalSearchParams() as { params: string };
   const [list, setList] = useState<AccountInfo[]>([]);
   const [exists, setExists] = useState<boolean>(false);
-
-  console.log(">>>>>Authenticator>>>", params);
-
-  if (params?.params) {
-  }
 
   useEffect(() => {
     const getTotpList = async () => {
@@ -111,13 +107,21 @@ export default function HomeScreen() {
                   width: 24,
                   height: 24,
                   borderRadius: 12,
-                  borderWidth: 2,
-                  borderColor: "#007AFF",
                   justifyContent: "center",
                   alignItems: "center",
                 }}
               >
-                <Text style={{ fontSize: 10 }}>{remaining}</Text>
+                <CountdownCircleTimer
+                  isPlaying
+                  size={28}
+                  strokeWidth={2}
+                  duration={remaining}
+                  colors="#007AFF"
+                >
+                  {({ remainingTime }) => (
+                    <Text style={{ fontSize: 10 }}>{remainingTime}</Text>
+                  )}
+                </CountdownCircleTimer>
               </View>
             </View>
           </View>
