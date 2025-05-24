@@ -13,3 +13,10 @@ type Props = {
 export function DataProvider({ value, children }: Props) {
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;
 }
+
+export interface AccountInfo {
+  account: string;
+  secret: string;
+  issuer: string;
+  rawInfo: string;
+}
