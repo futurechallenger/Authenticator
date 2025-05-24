@@ -8,6 +8,7 @@ import {
 } from "react-native";
 
 import { generateTOTP, getQueryParams } from "@/lib";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
@@ -31,8 +32,6 @@ export default function HomeScreen() {
   const renderItem = (
     itemInfo: ListRenderItemInfo<{
       key: string;
-      icon?: string;
-      title: string;
       subtitle: string;
       value: number; // 6 digits
       timer: number;
@@ -47,29 +46,10 @@ export default function HomeScreen() {
       <Pressable onPress={() => router.push("/detail")}>
         <View style={{ flexDirection: "row", padding: 16 }}>
           <View style={{ marginRight: 16 }}>
-            {/* <Image
-            source={
-              item.icon
-                ? { uri: item.icon }
-                : require("@/assets/images/default-icon.png")
-            }
-            style={{ width: 40, height: 40, borderRadius: 20 }}
-          /> */}
-            <View
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 20,
-                backgroundColor: "#007AFF",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            />
+            <FontAwesome name="github" size={30} color="black" />
           </View>
           <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-              {item.title}
-            </Text>
+            <Text style={{ fontSize: 16, fontWeight: "bold" }}>Github</Text>
             <Text style={{ fontSize: 14, color: "#666", marginTop: 4 }}>
               {item.subtitle}
             </Text>
