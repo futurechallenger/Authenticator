@@ -7,11 +7,21 @@ import {
   View,
 } from "react-native";
 
-import { Stack, useRouter } from "expo-router";
+import { generateTOTP, getQueryParams } from "@/lib";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const router = useRouter();
+  const params = useLocalSearchParams() as { params: string };
+
+  console.log(">>>>>Authenticator>>>", params);
+
+  if (params.params) {
+    const qs = getQueryParams(params.params);
+    const { code, remaining } = generateTOTP(qs.secret);
+    console.log(`Current TOTP code: ${code}, Remaining: ${remaining} seconds`);
+  }
 
   const handleScannPress = () => {
     console.log("Button pressed!");
