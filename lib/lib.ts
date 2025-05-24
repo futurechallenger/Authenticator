@@ -33,7 +33,6 @@ export const getTOTPAccount = (uri: string): string => {
   const url = new URL(uri);
   const path = decodeURIComponent(url.pathname);
 
-  // 从路径中提取账户名（格式为 totp/Issuer:AccountName）
   const [_, account] = path.includes(":") ? path.split(":") : [null, path];
 
   console.log(">>>getTOTPAccount end");
