@@ -77,7 +77,11 @@ export default function HomeScreen() {
     console.log(`Current TOTP code: ${code}, Remaining: ${remaining} seconds`);
 
     return (
-      <Pressable onPress={() => router.push("/detail")}>
+      <Pressable
+        onPress={() =>
+          router.push({ pathname: "/detail", params: { ...item } })
+        }
+      >
         <View style={{ flexDirection: "row", padding: 16 }}>
           <View style={{ marginRight: 16 }}>
             {/* TODO: Icon is hard coded */}
