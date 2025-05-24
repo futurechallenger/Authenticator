@@ -1,4 +1,4 @@
-import { AccountInfo, DataContext } from "@/lib/DataProvider";
+import { AccountInfo, getArrayAsync, setArrayAsync } from "@/lib/DataProvider";
 import {
   FlatList,
   ListRenderItemInfo,
@@ -11,13 +11,12 @@ import {
 import { generateTOTP, parseQRStringInfo } from "@/lib/lib";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const router = useRouter();
   const params = useLocalSearchParams() as { params: string };
-  const MMKV = useContext(DataContext);
   const [list, setList] = useState<AccountInfo[]>([]);
   const [exists, setExists] = useState<boolean>(false);
 
@@ -28,7 +27,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     const getTotpList = async () => {
-      const totpList = await MMKV?.getArrayAsync<AccountInfo>("totpList");
+      const totpList = await getArrayAsync<AccountInfo>("totpList");
       setList(totpList ?? []);
       console.log("getTotpList", totpList);
     };
@@ -41,8 +40,11 @@ export default function HomeScreen() {
       console.log("component did update", params);
       if (!params?.params) return;
 
-      const originalList = await MMKV?.getArrayAsync<AccountInfo>("totpList");
+      const originalList = await getArrayAsync<AccountInfo>("totpList");
+      console.log(">>>original list>>>", originalList);
+
       const parsed = parseQRStringInfo(params.params);
+      console.log(">>>parsed>>>", parsed);
 
       if (originalList?.some((item) => item.account === parsed.account)) {
         console.log("Account already exists");
@@ -57,10 +59,9 @@ export default function HomeScreen() {
         rawInfo: params?.params,
       };
 
-      await MMKV?.setArrayAsync("totpList", [
-        ...(originalList ?? []),
-        accountInfo,
-      ]);
+      console.log(">>>format account info", accountInfo);
+
+      await setArrayAsync("totpList", [...(originalList ?? []), accountInfo]);
 
       setList([...(originalList ?? []), accountInfo]);
     };
@@ -137,6 +138,11 @@ export default function HomeScreen() {
         <Pressable onPress={handleScannPress} style={styles.scanButton}>
           <Text style={{ color: "#fff", fontSize: 24 }}>+</Text>
         </Pressable>
+        {exists && (
+          <View style={{ position: "absolute", bottom: 100 }}>
+            <Text>Account already exists</Text>
+          </View>
+        )}
       </SafeAreaView>
     </SafeAreaProvider>
   );
