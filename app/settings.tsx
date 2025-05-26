@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 16,
     alignItems: "center",
+    fontSize: 16,
   },
   deleteText: {
     color: "white",
