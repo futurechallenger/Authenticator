@@ -41,6 +41,7 @@ export function TotpRow({ item }: { item: AccountInfo }) {
     if (!totp || totpRef.current?.code === totp.code) return;
 
     totpRef.current = { code: totp.code, remaining: totp.remaining };
+
     // 设置一个计时器，在remaining时间后再次生成totp
     const timer = setTimeout(() => {
       const { code, remaining } = generateTOTP(item.secret);
@@ -56,6 +57,8 @@ export function TotpRow({ item }: { item: AccountInfo }) {
   if (!totp) {
     return <View>Generating...</View>; // 在totp生成前显示加载状态
   }
+
+  console.log(">>>>>>display totp values>>>>>>", totp);
 
   return (
     <Pressable
@@ -88,12 +91,18 @@ export function TotpRow({ item }: { item: AccountInfo }) {
               }}
             >
               <CountdownCircleTimer
+                key={totp!.code}
                 isPlaying
                 size={28}
                 strokeWidth={2}
                 duration={totp!.remaining}
                 colors="#007AFF"
-                onComplete={() => ({ shouldRepeat: true, delay: 0 })}
+                onComplete={() => {
+                  return {
+                    shouldRepeat: true,
+                    delay: 0,
+                  };
+                }}
               >
                 {({ remainingTime }) => (
                   <Text style={{ fontSize: 10 }}>{remainingTime}</Text>
