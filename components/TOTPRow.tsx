@@ -17,7 +17,6 @@ export function TotpRow({ item }: { item: AccountInfo }) {
   const router = useRouter();
   const [totp, setTotp] = useState<TotpInfo | null>(null);
   const totpRef = useRef<TotpInfo | null>(null);
-  const [play, setPlay] = useState(true);
 
   useEffect(() => {
     const { code, remaining } = generateTOTP(item.secret);
@@ -29,7 +28,6 @@ export function TotpRow({ item }: { item: AccountInfo }) {
         item.secret
       );
       setTotp({ code: newCode, remaining: newRemaining });
-      setPlay(true);
     }, remaining * 1000); // 将剩余时间转换为毫秒
 
     // 清理计时器
@@ -47,7 +45,6 @@ export function TotpRow({ item }: { item: AccountInfo }) {
     const timer = setTimeout(() => {
       const { code, remaining } = generateTOTP(item.secret);
       setTotp({ code, remaining });
-      setPlay(true);
     }, totp.remaining * 1000); // 将剩余时间转换为毫秒
 
     // 清理计时器
@@ -91,7 +88,7 @@ export function TotpRow({ item }: { item: AccountInfo }) {
               }}
             >
               <CountdownCircleTimer
-                isPlaying={play}
+                isPlaying
                 size={28}
                 strokeWidth={2}
                 duration={totp!.remaining}
