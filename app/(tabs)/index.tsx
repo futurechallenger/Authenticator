@@ -7,10 +7,9 @@ import {
   Text,
   View,
 } from "react-native";
-import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 
-import { generateTOTP, parseQRStringInfo } from "@/lib/lib";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { TotpRow } from "@/components/TOTPRow";
+import { parseQRStringInfo } from "@/lib/lib";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -72,66 +71,8 @@ export default function HomeScreen() {
 
   const renderItem = (itemInfo: ListRenderItemInfo<AccountInfo>) => {
     const { item } = itemInfo;
-    const { code, remaining } = generateTOTP(item.secret);
 
-    console.log(`Current TOTP code: ${code}, Remaining: ${remaining} seconds`);
-
-    return (
-      <Pressable
-        onPress={() =>
-          router.push({ pathname: "/detail", params: { ...item } })
-        }
-      >
-        <View style={{ flexDirection: "row", padding: 16 }}>
-          <View style={{ marginRight: 16 }}>
-            {/* TODO: Icon is hard coded */}
-            <FontAwesome name="github" size={30} color="black" />
-          </View>
-          <View style={{ flex: 1 }}>
-            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-              {item.issuer}
-            </Text>
-            <Text style={{ fontSize: 14, color: "#666", marginTop: 4 }}>
-              {item.account}
-            </Text>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginTop: 8,
-              }}
-            >
-              <Text
-                style={{ fontSize: 18, fontWeight: "bold", marginRight: 8 }}
-              >
-                {code}
-              </Text>
-              <View
-                style={{
-                  width: 24,
-                  height: 24,
-                  borderRadius: 12,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <CountdownCircleTimer
-                  isPlaying
-                  size={28}
-                  strokeWidth={2}
-                  duration={remaining}
-                  colors="#007AFF"
-                >
-                  {({ remainingTime }) => (
-                    <Text style={{ fontSize: 10 }}>{remainingTime}</Text>
-                  )}
-                </CountdownCircleTimer>
-              </View>
-            </View>
-          </View>
-        </View>
-      </Pressable>
-    );
+    return <TotpRow item={item} />;
   };
   return (
     <SafeAreaProvider>
