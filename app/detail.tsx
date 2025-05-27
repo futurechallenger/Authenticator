@@ -65,7 +65,9 @@ export default function DetailScreen() {
                 );
               }}
             >
-              <FontAwesome name="ellipsis-v" size={24} color="black" />
+              <View style={styles.headerAction}>
+                <FontAwesome name="ellipsis-v" size={24} color="black" />
+              </View>
             </Pressable>
           ),
         }}
@@ -179,5 +181,13 @@ const styles = StyleSheet.create({
   },
   copyButton: {
     padding: 8,
+  },
+  headerAction: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 5,
+    width: 50,
+    height: 30,
   },
 });
