@@ -102,7 +102,6 @@ export function TotpRow({ item }: { item: AccountInfo }) {
                   <Text style={{ fontSize: 10 }}>{remainingTime}</Text>
                 )}
               </CountdownCircleTimer>
-              )
             </View>
           </View>
         </View>

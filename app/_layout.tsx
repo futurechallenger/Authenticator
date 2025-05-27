@@ -1,3 +1,4 @@
+import { AuthContext } from "@/lib/context";
 import {
   DarkTheme,
   DefaultTheme,
@@ -6,7 +7,7 @@ import {
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AppState } from "react-native";
 import "react-native-reanimated";
 
@@ -14,6 +15,7 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const [authenticated, setAuthenticated] = useState(false);
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
@@ -40,11 +42,13 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
+      <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
+        <Stack>
+          <Stack.Screen name="authenticator" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </AuthContext.Provider>
       <StatusBar style="auto" />
     </ThemeProvider>
   );
