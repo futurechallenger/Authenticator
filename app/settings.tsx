@@ -1,19 +1,32 @@
 import { getArrayAsync, setArrayAsync } from "@/lib/DataProvider";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function SettingsScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
 
   const handleDelete = async () => {
-    const list = await getArrayAsync("totpList");
-    const filtered = list.filter(
-      (item: any) =>
-        item.account !== params.account && item.secret !== params.secret
-    );
-    await setArrayAsync("totpList", filtered);
-    router.replace("/(tabs)");
+    Alert.alert("", "删除账户后，您将无法再使用此设备验证身份", [
+      {
+        text: "Cancel",
+        onPress: () => {
+          "mission canceled";
+        },
+      },
+      {
+        text: "OK",
+        onPress: async () => {
+          const list = await getArrayAsync("totpList");
+          const filtered = list.filter(
+            (item: any) =>
+              item.account !== params.account && item.secret !== params.secret
+          );
+          await setArrayAsync("totpList", filtered);
+          router.dismissAll();
+        },
+      },
+    ]);
   };
 
   return (
