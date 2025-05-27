@@ -8,10 +8,7 @@ import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-type TotpInfo = {
-  code: string;
-  remaining: number;
-};
+import type { TotpInfo } from "@/lib/lib";
 
 export function TotpRow({ item }: { item: AccountInfo }) {
   const router = useRouter();
@@ -37,7 +34,6 @@ export function TotpRow({ item }: { item: AccountInfo }) {
   }, [item.secret]); // 依赖于item.secret以确保每次生成新的totp
 
   useEffect(() => {
-    console.log(">>>>>TOTP is changed", totp);
     if (!totp || totpRef.current?.code === totp.code) return;
 
     totpRef.current = { code: totp.code, remaining: totp.remaining };
@@ -57,8 +53,6 @@ export function TotpRow({ item }: { item: AccountInfo }) {
   if (!totp) {
     return <View>Generating...</View>; // 在totp生成前显示加载状态
   }
-
-  console.log(">>>>>>display totp values>>>>>>", totp);
 
   return (
     <Pressable
