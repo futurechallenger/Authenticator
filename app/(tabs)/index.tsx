@@ -5,8 +5,8 @@ import {
   Pressable,
   StyleSheet,
   Text,
-  View,
 } from "react-native";
+import Toast from "react-native-root-toast";
 
 import { TotpRow } from "@/components/TOTPRow";
 import { parseQRStringInfo } from "@/lib/lib";
@@ -28,6 +28,11 @@ export default function HomeScreen() {
     };
 
     getTotpList();
+
+    return () => {
+      console.log("component will unmount");
+      setExists(false);
+    };
   }, []);
 
   useEffect(() => {
@@ -61,6 +66,14 @@ export default function HomeScreen() {
     putTotpList();
   }, [params?.params]);
 
+  useEffect(() => {
+    if (exists) {
+      setTimeout(() => {
+        setExists(false);
+      }, 5000);
+    }
+  }, [exists]);
+
   const handleScannPress = () => {
     console.log("Button pressed!");
     router.push("/scanner");
@@ -84,11 +97,13 @@ export default function HomeScreen() {
         <Pressable onPress={handleScannPress} style={styles.scanButton}>
           <Text style={{ color: "#fff", fontSize: 24 }}>+</Text>
         </Pressable>
-        {exists && (
-          <View style={{ position: "absolute", bottom: 100 }}>
-            <Text>Account already exists</Text>
-          </View>
-        )}
+        <Toast
+          visible={exists}
+          position={-60}
+          onHidden={() => setExists(false)}
+        >
+          Account already exists!
+        </Toast>
       </SafeAreaView>
     </SafeAreaProvider>
   );
