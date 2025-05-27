@@ -2,16 +2,54 @@ import { generateTOTP } from "@/lib/lib";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import * as Clipboard from "expo-clipboard";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useRef, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 
+import type { TotpInfo } from "@/lib/lib";
 export default function DetailScreen() {
-  const params = useLocalSearchParams();
+  const params = useLocalSearchParams() as { [key: string]: string };
   const router = useRouter();
-  const { code, remaining } = generateTOTP(params.secret as string);
+  const totpRef = useRef<TotpInfo | null>(null);
+  const [totp, setTotp] = useState<TotpInfo | null>(null);
+
+  useEffect(() => {
+    const { code, remaining } = generateTOTP(params.secret);
+    setTotp({ code, remaining });
+
+    // 设置一个计时器，在remaining时间后再次生成totp
+    const timer = setTimeout(() => {
+      const { code: newCode, remaining: newRemaining } = generateTOTP(
+        params.secret
+      );
+      setTotp({ code: newCode, remaining: newRemaining });
+    }, remaining * 1000); // 将剩余时间转换为毫秒
+
+    // 清理计时器
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [params.secret]); // 依赖于item.secret以确保每次生成新的totp
+
+  useEffect(() => {
+    if (!totp || totpRef.current?.code === totp.code) return;
+
+    totpRef.current = { code: totp.code, remaining: totp.remaining };
+
+    // 设置一个计时器，在remaining时间后再次生成totp
+    const timer = setTimeout(() => {
+      const { code, remaining } = generateTOTP(params.secret);
+      setTotp({ code, remaining });
+    }, totp.remaining * 1000); // 将剩余时间转换为毫秒
+
+    // 清理计时器
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [totp]);
 
   const copyToClipboard = async () => {
-    await Clipboard.setStringAsync(`${code}`);
+    await Clipboard.setStringAsync(`${totp?.code}`);
   };
 
   return (
@@ -48,16 +86,23 @@ export default function DetailScreen() {
         <View style={styles.totpRow}>
           <View style={styles.codeContainer}>
             <Text style={styles.codeLabel}>一次性密码代码</Text>
-            <Text style={styles.codeValue}>{code}</Text>
+            <Text style={styles.codeValue}>{totp?.code}</Text>
           </View>
 
           <View style={styles.rightGroup}>
             <CountdownCircleTimer
+              key={totp?.code}
               isPlaying
               size={28}
               strokeWidth={2}
-              duration={remaining}
+              duration={totp?.remaining ?? 0}
               colors="#007AFF"
+              onComplete={() => {
+                return {
+                  shouldRepeat: true,
+                  delay: 0,
+                };
+              }}
             >
               {({ remainingTime }) => (
                 <Text style={styles.timerText}>{remainingTime}</Text>

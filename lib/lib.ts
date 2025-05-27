@@ -1,6 +1,11 @@
 // 在文件顶部添加以下依赖
 import jsSHA from "jssha";
 
+export type TotpInfo = {
+  code: string;
+  remaining: number;
+};
+
 export function parseQRStringInfo(url: string): { [key: string]: string } {
   console.log(">>>parseQRStringInfo start");
   const queryParams = getQueryParams(url);
