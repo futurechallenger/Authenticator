@@ -54,10 +54,7 @@ export default function HomeScreen() {
         rawInfo: params?.params,
       };
 
-      console.log(">>>format account info", accountInfo);
-
       await setArrayAsync("totpList", [...(originalList ?? []), accountInfo]);
-
       setList([...(originalList ?? []), accountInfo]);
     };
 
