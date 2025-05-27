@@ -10,6 +10,7 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import { AppState } from "react-native";
 import "react-native-reanimated";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
@@ -43,11 +44,16 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
-        <Stack>
-          <Stack.Screen name="authenticator" options={{ headerShown: false }} />
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
+        <RootSiblingParent>
+          <Stack>
+            <Stack.Screen
+              name="authenticator"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </RootSiblingParent>
       </AuthContext.Provider>
       <StatusBar style="auto" />
     </ThemeProvider>
