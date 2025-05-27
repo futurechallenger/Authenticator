@@ -66,6 +66,14 @@ export default function HomeScreen() {
     putTotpList();
   }, [params?.params]);
 
+  useEffect(() => {
+    if (exists) {
+      setTimeout(() => {
+        setExists(false);
+      }, 5000);
+    }
+  }, [exists]);
+
   const handleScannPress = () => {
     console.log("Button pressed!");
     router.push("/scanner");
