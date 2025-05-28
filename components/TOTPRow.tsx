@@ -58,9 +58,22 @@ export function TotpRow({ item }: { item: AccountInfo }) {
     <Pressable
       onPress={() => router.push({ pathname: "/detail", params: { ...item } })}
     >
-      <View style={{ flexDirection: "row", padding: 16 }}>
-        <View style={{ marginRight: 16 }}>
-          <FontAwesome name="github" size={30} color="black" />
+      <View
+        style={{
+          flexDirection: "row",
+          flex: 1,
+          justifyContent: "flex-start",
+          alignItems: "center",
+          padding: 16,
+          borderBottomColor: "#E5E4E4",
+          borderBottomWidth: 1,
+          backgroundColor: "#fff",
+        }}
+      >
+        <View style={{ height: 75 }}>
+          <View style={{ marginRight: 16 }}>
+            <FontAwesome name="github" size={30} color="black" />
+          </View>
         </View>
         <View style={{ flex: 1 }}>
           <Text style={{ fontSize: 16, fontWeight: "bold" }}>
@@ -104,6 +117,9 @@ export function TotpRow({ item }: { item: AccountInfo }) {
               </CountdownCircleTimer>
             </View>
           </View>
+        </View>
+        <View style={{ padding: 10 }}>
+          <FontAwesome name="angle-right" size={20} color="black" />
         </View>
       </View>
     </Pressable>

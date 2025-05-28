@@ -92,7 +92,7 @@ export default function HomeScreen() {
           title: "Authenticator",
         }}
       />
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#F5F4F4" }}>
         <FlatList data={list} renderItem={renderItem} />
         <Pressable onPress={handleScannPress} style={styles.scanButton}>
           <Text style={{ color: "#fff", fontSize: 24 }}>+</Text>
