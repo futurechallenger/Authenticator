@@ -18,15 +18,15 @@ export default function TabLayout() {
     const subscription = AppState.addEventListener("change", (state) => {
       if (state === "active") {
         console.log("App is now active");
-        if (!authentication?.authenticated) {
+        if (!authentication?.authenticated.current) {
           router.replace("/authenticator");
         }
       } else if (state === "background") {
         console.log("App is now in the background");
         authentication?.setAuthenticated(false);
       } else if (state === "inactive") {
-        console.log("App is now inactive");
-        authentication?.setAuthenticated(false);
+        // console.log("App is now inactive");
+        // authentication?.setAuthenticated(false);
       }
     });
     return () => {
