@@ -3,11 +3,18 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import * as Clipboard from "expo-clipboard";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  useColorScheme,
+  View,
+} from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 
 import type { TotpInfo } from "@/lib/lib";
 export default function DetailScreen() {
+  const colorScheme = useColorScheme();
   const params = useLocalSearchParams() as { [key: string]: string };
   const router = useRouter();
   const totpRef = useRef<TotpInfo | null>(null);
@@ -65,8 +72,8 @@ export default function DetailScreen() {
                 );
               }}
             >
-              <View style={styles.headerAction}>
-                <FontAwesome name="ellipsis-v" size={24} color="black" />
+              <View style={[styles.headerAction]}>
+                <FontAwesome name="ellipsis-v" size={24} color="#007AFF" />
               </View>
             </Pressable>
           ),
