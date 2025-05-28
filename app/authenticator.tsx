@@ -1,10 +1,12 @@
+import { AuthContext } from "@/lib/context";
 import { useRouter } from "expo-router";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import ReactNativeBiometrics from "react-native-biometrics";
 
 const AuthScreen = () => {
   const router = useRouter();
+  const authentication = useContext(AuthContext);
 
   const promptScreen = async () => {
     console.log("App is now active");
@@ -28,6 +30,7 @@ const AuthScreen = () => {
           }
 
           console.log(`>>>success: ${success}, >>> error: ${error}`);
+          authentication?.setAuthenticated(true);
 
           router.replace("/(tabs)");
         });

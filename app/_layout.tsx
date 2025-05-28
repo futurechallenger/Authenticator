@@ -7,7 +7,7 @@ import {
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { AppState } from "react-native";
 import "react-native-reanimated";
 import { RootSiblingParent } from "react-native-root-siblings";
@@ -16,7 +16,12 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  const [authenticated, setAuthenticated] = useState(false);
+  // const [authenticated, setAuthenticated] = useState(false);
+  const authenticated = useRef(false);
+  const setAuthenticated = (value: boolean) => {
+    authenticated.current = value;
+  };
+
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });

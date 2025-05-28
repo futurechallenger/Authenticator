@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 type AuthContextType = {
-  authenticated: boolean;
+  authenticated: React.RefObject<boolean>;
   setAuthenticated: (value: boolean) => void;
 };
 
