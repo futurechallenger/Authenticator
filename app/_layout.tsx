@@ -55,7 +55,10 @@ export default function RootLayout() {
               name="authenticator"
               options={{ headerShown: false }}
             />
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="(tabs)"
+              options={{ headerShown: false, title: "" }}
+            />
             <Stack.Screen name="+not-found" />
           </Stack>
         </RootSiblingParent>
