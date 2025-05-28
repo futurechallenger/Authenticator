@@ -4,6 +4,7 @@ import * as Clipboard from "expo-clipboard";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -73,7 +74,11 @@ export default function DetailScreen() {
               }}
             >
               <View style={[styles.headerAction]}>
-                <FontAwesome name="ellipsis-v" size={24} color="#007AFF" />
+                <FontAwesome
+                  name="ellipsis-v"
+                  size={24}
+                  color={Platform.OS === "ios" ? "#007AFF" : "black"}
+                />
               </View>
             </Pressable>
           ),
