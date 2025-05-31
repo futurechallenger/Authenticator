@@ -104,7 +104,7 @@ export default function HomeScreen() {
           position={-60}
           onHidden={() => setExists(false)}
         >
-          Account already exists!
+          {t("home.accountExists")}
         </Toast>
       </SafeAreaView>
     </SafeAreaProvider>
