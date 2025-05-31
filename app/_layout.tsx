@@ -17,7 +17,6 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-  // const [authenticated, setAuthenticated] = useState(false);
   const authenticated = useRef(false);
   const setAuthenticated = (value: boolean) => {
     authenticated.current = value;
