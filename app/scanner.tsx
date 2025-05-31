@@ -1,5 +1,6 @@
-import { useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { SafeAreaView, StyleSheet } from "react-native";
 import {
   Camera,
@@ -11,6 +12,7 @@ import {
 export default function Scanner() {
   const router = useRouter();
   const { hasPermission, requestPermission } = useCameraPermission();
+  const { t } = useTranslation();
 
   const device = useCameraDevice("back");
   const codeScanner = useCodeScanner({
@@ -35,18 +37,16 @@ export default function Scanner() {
     })();
   }, []);
 
-  // useEffect(() => {
-  //   if (!device) {
-  //     console.log(device);
-  //   }
-  // }, [device]);
-
   if (!device) return <div>No device</div>;
 
   return (
     <SafeAreaView
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     >
+      <Stack.Screen
+        options={{ headerShown: true, title: t("scanner.title") }}
+        name="Scanner"
+      />
       <Camera
         style={StyleSheet.absoluteFill}
         device={device}
