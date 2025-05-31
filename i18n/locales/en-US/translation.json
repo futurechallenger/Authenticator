@@ -18,7 +18,8 @@
     "deleteConfirm": "Deleting an account will prevent you from using this device to authenticate",
     "cancel": "Cancel",
     "ok": "OK",
-    "deleteAccount": "Delete Account"
+    "deleteAccount": "Delete Account",
+    "scan": "Scan QR code"
   },
   "general": {
     "pageNotFound": "This screen does not exist.",
@@ -30,7 +31,9 @@
     "prompt": "Authenticate to access the app"
   },
   "detail": {
-    "title": "Detail"
+    "title": "Detail",
+    "oneTimeCodeInUse": "One-time password in use",
+    "oneTimeCode": "One-time code"
   },
   "permissions": {
     "title": "Permissions",
