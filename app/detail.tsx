@@ -89,11 +89,11 @@ export default function DetailScreen() {
 
       {/* 配置信息列表 */}
       <View style={styles.listContainer}>
-        <Text style={styles.sectionTitle}>已启用的一次性密码</Text>
+        <Text style={styles.sectionTitle}>{t("detail.oneTimeCodeInUse")}</Text>
 
         <View style={styles.totpRow}>
           <View style={styles.codeContainer}>
-            <Text style={styles.codeLabel}>一次性密码代码</Text>
+            <Text style={styles.codeLabel}>{t("detail.oneTimeCode")}</Text>
             <Text style={styles.codeValue}>{totp?.code}</Text>
           </View>
 

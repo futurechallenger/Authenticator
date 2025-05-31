@@ -50,7 +50,7 @@ export default function TabTwoScreen() {
             color="white"
             style={{ marginRight: 8 }}
           />
-          <Text style={styles.buttonTitle}>Scan QR code</Text>
+          <Text style={styles.buttonTitle}>{t("settings.scan")}</Text>
         </View>
       </Pressable>
     </ParallaxScrollView>

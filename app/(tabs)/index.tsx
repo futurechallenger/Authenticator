@@ -32,24 +32,19 @@ export default function HomeScreen() {
     getTotpList();
 
     return () => {
-      console.log("component will unmount");
       setExists(false);
     };
   }, []);
 
   useEffect(() => {
     const putTotpList = async () => {
-      console.log("component did update", params);
       if (!params?.params) return;
 
       const originalList = await getArrayAsync<AccountInfo>("totpList");
-      console.log(">>>original list>>>", originalList);
 
       const parsed = parseQRStringInfo(params.params);
-      console.log(">>>parsed>>>", parsed);
 
       if (originalList?.some((item) => item.account === parsed.account)) {
-        console.log("Account already exists");
         setExists(true);
         return;
       }
@@ -77,7 +72,6 @@ export default function HomeScreen() {
   }, [exists]);
 
   const handleScannPress = () => {
-    console.log("Button pressed!");
     router.push("/scanner");
   };
 

@@ -25,8 +25,6 @@ export default function TabLayout() {
         console.log("App is now in the background");
         authentication?.setAuthenticated(false);
       } else if (state === "inactive") {
-        // console.log("App is now inactive");
-        // authentication?.setAuthenticated(false);
       }
     });
     return () => {
