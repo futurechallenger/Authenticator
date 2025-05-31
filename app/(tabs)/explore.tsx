@@ -6,8 +6,10 @@ import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 
 export default function TabTwoScreen() {
+  const { t } = useTranslation();
   const router = useRouter();
 
   const handlePress = () => {
@@ -27,9 +29,9 @@ export default function TabTwoScreen() {
       }
     >
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Settings</ThemedText>
+        <ThemedText type="title">{t("home.settings")}</ThemedText>
       </ThemedView>
-      <ThemedText>Scan a QR code to start the 2FA setup.</ThemedText>
+      <ThemedText>{t("settings.scanToStart")}</ThemedText>
       <Pressable style={{}} onPress={handlePress}>
         <View
           style={{

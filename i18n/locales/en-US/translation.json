@@ -2,6 +2,8 @@
   "language": "Language",
   "home": {
     "title": "Authenticator",
+    "accountExists": "Account already exists",
+    "settings": "Settings",
     "welcome": "Welcome",
     "subtitle": "Example i18n App!",
     "description": "This is an example React Native application demonstrating how to implement internationalization (i18n) using react-i18next. The app allows users to switch between different languages for a more localized experience.",
@@ -10,5 +12,33 @@
     "learnMore": "Want to Learn More?",
     "repositoryLinkText": "Project repository on GitHub",
     "articlesLinkText": "More articles"
+  },
+  "settings": {
+    "scanToStart": "Scan a QR code to start the 2FA setup.",
+    "deleteConfirm": "Deleting an account will prevent you from using this device to authenticate",
+    "cancel": "Cancel",
+    "ok": "OK",
+    "deleteAccount": "Delete Account"
+  },
+  "general": {
+    "pageNotFound": "This screen does not exist.",
+    "navHome": "Go to home screen!"
+  },
+  "auth": {
+    "title": "Authenticator",
+    "login": "Login",
+    "prompt": "Authenticate to access the app"
+  },
+  "detail": {
+    "title": "Detail"
+  },
+  "permissions": {
+    "title": "Permissions",
+    "permisionText": "We need access to your camera to scan QR codes. Please grant camera permissions to continue using the scanning feature.",
+    "goSettings": "Go to Settings",
+    "settingManually": "You need to manually enable camera permissions"
+  },
+  "scanner": {
+    "title": "Scan QR Code"
   }
 }

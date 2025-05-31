@@ -3,23 +3,17 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import * as Clipboard from "expo-clipboard";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
-import {
-  Platform,
-  Pressable,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from "react-native";
+import { useTranslation } from "react-i18next";
+import { Platform, Pressable, StyleSheet, Text, View } from "react-native";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 
 import type { TotpInfo } from "@/lib/lib";
 export default function DetailScreen() {
-  const colorScheme = useColorScheme();
   const params = useLocalSearchParams() as { [key: string]: string };
   const router = useRouter();
   const totpRef = useRef<TotpInfo | null>(null);
   const [totp, setTotp] = useState<TotpInfo | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const { code, remaining } = generateTOTP(params.secret);
@@ -64,7 +58,7 @@ export default function DetailScreen() {
     <View style={styles.container}>
       <Stack.Screen
         options={{
-          title: "Detail",
+          title: t("detail.title"),
           headerRight: () => (
             <Pressable
               onPress={() => {

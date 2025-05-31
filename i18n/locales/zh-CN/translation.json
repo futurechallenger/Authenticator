@@ -2,6 +2,8 @@
   "language": "语言",
   "home": {
     "title": "Authenticator",
+    "accountExists": "账户已存在",
+    "settings": "设置",
     "welcome": "欢迎",
     "subtitle": "i18n示例应用！",
     "description": "这是一个使用react-i18next实现国际化（i18n）的React Native示例应用。该应用允许用户在不同语言之间切换，以提供更本地化的体验。",
@@ -10,5 +12,33 @@
     "learnMore": "想了解更多？",
     "repositoryLinkText": "GitHub上的项目仓库",
     "articlesLinkText": "更多文章"
+  },
+  "settings": {
+    "scanToStart": "扫描二维码以开始2FA设置。",
+    "deleteConfirm": "删除账户后，您将无法再使用此设备验证身份",
+    "cancel": "取消",
+    "ok": "确定",
+    "deleteAccount": "删除账户"
+  },
+  "general": {
+    "pageNotFound": "该页面不存在。",
+    "navHome": "回到主页!"
+  },
+  "auth": {
+    "title": "Authenticator",
+    "login": "登录",
+    "prompt": "验证以访问应用"
+  },
+  "detail": {
+    "title": "账号详情"
+  },
+  "permissions": {
+    "title": "权限",
+    "permisionText": "我们需要访问您的相机权限来扫描二维码。请授予相机权限以继续使用扫码功能。",
+    "goSettings": "前往设置",
+    "settingManually": "您需要手动开启相机权限"
+  },
+  "scanner": {
+    "title": "扫描二维码"
   }
 }

@@ -1,21 +1,23 @@
 import { getArrayAsync, setArrayAsync } from "@/lib/DataProvider";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function SettingsScreen() {
   const router = useRouter();
   const params = useLocalSearchParams();
+  const { t } = useTranslation();
 
   const handleDelete = async () => {
-    Alert.alert("", "删除账户后，您将无法再使用此设备验证身份", [
+    Alert.alert("", t("settings.deleteConfirm"), [
       {
-        text: "Cancel",
+        text: t("settings.cancel"),
         onPress: () => {
-          "mission canceled";
+          console.log("mission canceled");
         },
       },
       {
-        text: "OK",
+        text: t("settings.ok"),
         onPress: async () => {
           const list = await getArrayAsync("totpList");
           const filtered = list.filter(
@@ -31,6 +33,7 @@ export default function SettingsScreen() {
 
   return (
     <View style={styles.container}>
+      <Stack.Screen options={{ title: t("settings.title") }} />
       <View>
         <Text style={{ fontWeight: "bold", fontSize: 20 }}>
           {params.issuer}
@@ -38,7 +41,7 @@ export default function SettingsScreen() {
         <Text style={{ color: "gray" }}>{params.account}</Text>
       </View>
       <Pressable onPress={handleDelete} style={styles.deleteButton}>
-        <Text style={styles.deleteText}>删除账户</Text>
+        <Text style={styles.deleteText}>{t("settings.deleteAccount")}</Text>
       </Pressable>
     </View>
   );

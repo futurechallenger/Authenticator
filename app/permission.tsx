@@ -1,4 +1,5 @@
-import { useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import {
   Linking,
   SafeAreaView,
@@ -11,6 +12,7 @@ import { useCameraPermission } from "react-native-vision-camera";
 export default function PermissionScreen() {
   const router = useRouter();
   const { hasPermission } = useCameraPermission();
+  const { t } = useTranslation();
 
   const handleOpenSettings = async () => {
     // 打开系统设置
@@ -23,10 +25,14 @@ export default function PermissionScreen() {
     <SafeAreaView
       style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
     >
+      <Stack.Screen
+        options={{ headerShown: true, title: t("permission.title") }}
+        name="Permission"
+      />
+
       <View style={{ padding: 20, maxWidth: "80%" }}>
         <Text style={{ fontSize: 20, textAlign: "center", marginBottom: 30 }}>
-          我们需要访问您的相机权限来扫描二维码。
-          请授予相机权限以继续使用扫码功能。
+          {t("permission.permissionText")}
         </Text>
 
         <TouchableOpacity
@@ -39,13 +45,13 @@ export default function PermissionScreen() {
           }}
         >
           <Text style={{ color: "white", fontSize: 18, fontWeight: "500" }}>
-            前往设置
+            {t("permission.goSettings")}
           </Text>
         </TouchableOpacity>
 
         {!hasPermission && (
           <Text style={{ marginTop: 20, color: "#666", textAlign: "center" }}>
-            您需要手动开启相机权限
+            {t("permission.settingManually")}
           </Text>
         )}
       </View>

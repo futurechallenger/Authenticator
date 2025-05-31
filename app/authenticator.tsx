@@ -1,27 +1,25 @@
 import { AuthContext } from "@/lib/context";
 import { useRouter } from "expo-router";
 import { useContext, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import ReactNativeBiometrics from "react-native-biometrics";
 
 const AuthScreen = () => {
   const router = useRouter();
   const authentication = useContext(AuthContext);
+  const { t } = useTranslation();
 
   const promptScreen = async () => {
-    console.log("App is now active");
     const biometrics = new ReactNativeBiometrics({
       allowDeviceCredentials: true,
     });
     const { biometryType } = await biometrics.isSensorAvailable();
 
-    console.log(`>>>biometryType: ${biometryType}`);
-
     if (biometryType === "FaceID" || biometryType === "Biometrics") {
-      console.log("FaceID is available");
       biometrics
         .simplePrompt({
-          promptMessage: "Authenticate to access the app",
+          promptMessage: t("auth.prompt"),
         })
         .then(({ success, error }) => {
           if (error) {
@@ -29,9 +27,8 @@ const AuthScreen = () => {
             return;
           }
 
-          console.log(`>>>success: ${success}, >>> error: ${error}`);
           authentication?.setAuthenticated(true);
-
+          // nav to app content
           router.replace("/(tabs)");
         });
     }
@@ -42,8 +39,6 @@ const AuthScreen = () => {
   }, []);
 
   const handlePress = () => {
-    console.log("Button pressed!");
-    // router.push("/authenticator");
     promptScreen();
   };
 
@@ -56,7 +51,7 @@ const AuthScreen = () => {
           alignItems: "center",
         }}
       >
-        <Text style={styles.text}>Authenticator</Text>
+        <Text style={styles.text}>{t("auth.title")}</Text>
       </View>
       <View
         style={{
@@ -66,7 +61,7 @@ const AuthScreen = () => {
         }}
       >
         <Pressable onPress={handlePress}>
-          <Text style={styles.buttonTitle}>Login</Text>
+          <Text style={styles.buttonTitle}>{t("auth.login")}</Text>
         </Pressable>
       </View>
     </View>
