@@ -1,3 +1,4 @@
+import "@/i18n";
 import { AuthContext } from "@/lib/context";
 import {
   DarkTheme,
