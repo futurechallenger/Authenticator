@@ -12,6 +12,7 @@ import { TotpRow } from "@/components/TOTPRow";
 import { parseQRStringInfo } from "@/lib/lib";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
@@ -19,6 +20,7 @@ export default function HomeScreen() {
   const params = useLocalSearchParams() as { params: string };
   const [list, setList] = useState<AccountInfo[]>([]);
   const [exists, setExists] = useState<boolean>(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const getTotpList = async () => {
@@ -89,7 +91,7 @@ export default function HomeScreen() {
       <Stack.Screen
         options={{
           headerShown: true,
-          title: "Authenticator",
+          title: t("home.title"),
         }}
       />
       <SafeAreaView style={{ flex: 1, backgroundColor: "#F5F4F4" }}>
