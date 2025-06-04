@@ -5,6 +5,7 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  View,
 } from "react-native";
 import Toast from "react-native-root-toast";
 
@@ -13,13 +14,14 @@ import { parseQRStringInfo } from "@/lib/lib";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   const router = useRouter();
   const params = useLocalSearchParams() as { params: string };
   const [list, setList] = useState<AccountInfo[]>([]);
   const [exists, setExists] = useState<boolean>(false);
+  const insets = useSafeAreaInsets();
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -81,14 +83,16 @@ export default function HomeScreen() {
     return <TotpRow item={item} />;
   };
   return (
-    <SafeAreaProvider>
+    <View
+      style={{ flex: 1, paddingTop: insets.top, paddingBottom: insets.bottom }}
+    >
       <Stack.Screen
         options={{
           headerShown: true,
           title: t("home.title"),
         }}
       />
-      <SafeAreaView style={{ flex: 1, backgroundColor: "#F5F4F4" }}>
+      <View style={{ flex: 1, backgroundColor: "#F5F4F4" }}>
         <FlatList data={list} renderItem={renderItem} />
         <Pressable onPress={handleScannPress} style={styles.scanButton}>
           <Text style={{ color: "#fff", fontSize: 24 }}>+</Text>
@@ -100,8 +104,8 @@ export default function HomeScreen() {
         >
           {t("home.accountExists")}
         </Toast>
-      </SafeAreaView>
-    </SafeAreaProvider>
+      </View>
+    </View>
   );
 }
 
@@ -124,7 +128,7 @@ const styles = StyleSheet.create({
   },
   scanButton: {
     position: "absolute",
-    bottom: 100,
+    bottom: 70,
     right: 24,
     width: 56,
     height: 56,

@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import { AppState } from "react-native";
 import "react-native-reanimated";
 import { RootSiblingParent } from "react-native-root-siblings";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import * as Fonts from "expo-font";
@@ -64,17 +65,19 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <AuthContext.Provider value={{ authenticated, setAuthenticated }}>
         <RootSiblingParent>
-          <Stack>
-            <Stack.Screen
-              name="authenticator"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="(tabs)"
-              options={{ headerShown: false, title: "" }}
-            />
-            <Stack.Screen name="+not-found" />
-          </Stack>
+          <SafeAreaProvider>
+            <Stack>
+              <Stack.Screen
+                name="authenticator"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="(tabs)"
+                options={{ headerShown: false, title: "" }}
+              />
+              <Stack.Screen name="+not-found" />
+            </Stack>
+          </SafeAreaProvider>
         </RootSiblingParent>
       </AuthContext.Provider>
       <StatusBar style="auto" />
