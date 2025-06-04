@@ -5,26 +5,39 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { SplashScreen, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AppState } from "react-native";
 import "react-native-reanimated";
 import { RootSiblingParent } from "react-native-root-siblings";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import * as Fonts from "expo-font";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const [appIsReady, setAppIsReady] = useState(false);
   const authenticated = useRef(false);
   const setAuthenticated = (value: boolean) => {
     authenticated.current = value;
   };
 
-  const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-  });
+  useEffect(() => {
+    const prepare = async () => {
+      try {
+        await Fonts.loadAsync({
+          SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+        });
+      } catch (e) {
+        console.error("prepare app error", e);
+      } finally {
+        setAppIsReady(true);
+      }
+    };
+
+    prepare();
+  }, []);
 
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (state) => {
@@ -41,9 +54,10 @@ export default function RootLayout() {
     };
   }, []);
 
-  if (!loaded) {
-    // Async font loading only occurs in development.
+  if (!appIsReady) {
     return null;
+  } else {
+    SplashScreen.hide();
   }
 
   return (
