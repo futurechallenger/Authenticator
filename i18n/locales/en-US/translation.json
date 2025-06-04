@@ -43,5 +43,9 @@
   },
   "scanner": {
     "title": "Scan QR Code"
+  },
+  "tabs": {
+    "authenticator": "Authenticator",
+    "settings": "Settings"
   }
 }

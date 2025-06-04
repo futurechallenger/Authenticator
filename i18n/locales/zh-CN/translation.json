@@ -43,5 +43,9 @@
   },
   "scanner": {
     "title": "扫描二维码"
+  },
+  "tabs": {
+    "authenticator": "Authenticator",
+    "settings": "设置"
   }
 }
