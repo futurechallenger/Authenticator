@@ -2,11 +2,13 @@ import { AccountInfo, getArrayAsync, setArrayAsync } from "@/lib/DataProvider";
 import {
   FlatList,
   ListRenderItemInfo,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
   View,
 } from "react-native";
+
 import Toast from "react-native-root-toast";
 
 import { TotpRow } from "@/components/TOTPRow";
@@ -83,9 +85,7 @@ export default function HomeScreen() {
     return <TotpRow item={item} />;
   };
   return (
-    <View
-      style={{ flex: 1, paddingTop: insets.top, paddingBottom: insets.bottom }}
-    >
+    <View style={{ flex: 1, paddingBottom: insets.bottom }}>
       <Stack.Screen
         options={{
           headerShown: true,
@@ -94,7 +94,13 @@ export default function HomeScreen() {
       />
       <View style={{ flex: 1, backgroundColor: "#F5F4F4" }}>
         <FlatList data={list} renderItem={renderItem} />
-        <Pressable onPress={handleScannPress} style={styles.scanButton}>
+        <Pressable
+          onPress={handleScannPress}
+          style={[
+            styles.scanButton,
+            Platform.OS === "android" && { bottom: 20 },
+          ]}
+        >
           <Text style={{ color: "#fff", fontSize: 24 }}>+</Text>
         </Pressable>
         <Toast
